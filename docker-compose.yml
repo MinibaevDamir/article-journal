@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  nest: 
+    build: ./nest-backend
+
+    ports:
+      - "5000:3000"
+    
+    volumes:
+      - "/usercode/:/code"
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=blog_DB
+    ports:
+      - "5432:5432"
+  vue: 
+    build: ./vue3-frontend
+
+    ports:
+      - "80:8080"
+
+    volumes:
+      - "/usercode/:/code"
