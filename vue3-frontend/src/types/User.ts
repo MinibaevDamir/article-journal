@@ -1,9 +1,9 @@
 export interface UserData {
     name: string;
     surname: string;
-    blogDescription: string;
-    background?: File | null;
-    logo: File | null;
+    blogDescription: string | null;
+    background?: Buffer | null;
+    logo: Buffer | null;
     password: string;
     confirmPassword: "";
     email: string;
