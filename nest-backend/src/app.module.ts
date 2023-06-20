@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './models/User/entities/user.entity';
+import { UserModule } from './models/User/user.module';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }),
@@ -16,11 +17,19 @@ import { User } from './models/User/entities/user.entity';
       username: configService.get('DB_USERNAME'),
       password: configService.get('DB_PASSWORD'),
       database: configService.get('DB_NAME'),
+      // host: 'localhost',
+      // username: 'admin',
+      // password: 'admin',
+      // database: 'blog_DB',
+      synchronize: false,
       entities: [User],
-      synchronize: true,
+      logging: true,
+      migrations: ['dist/database/migrations/*.js'],
+      migrationsTableName: "migrations_typeorm",
+      migrationsRun: true
     }),
     inject: [ConfigService],
-  })],
+  }), UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
