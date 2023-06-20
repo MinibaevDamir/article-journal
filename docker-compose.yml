@@ -2,28 +2,31 @@ version: '3.7'
 services:
   nest:
     build: ./nest-backend
-
     ports:
       - "5000:3000"
     volumes:
       - "/usercode/:/code"
     environment:
-      - DB_HOST=localhost
+      - DB_HOST=db
       - DB_PORT=5432
       - DB_USERNAME=admin
       - DB_PASSWORD=admin
       - DB_NAME=blog_DB
+    depends_on:
+      - db
     logging:
       driver: "json-file"
       options:
         max-size: "200k"
         max-file: "10"
   db:
-    image: postgres
+    image: postgres:15.3
+    restart: always
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=blog_DB
+      - POSTGRES_HOST=db
     ports:
       - "5432:5432"
   vue:
