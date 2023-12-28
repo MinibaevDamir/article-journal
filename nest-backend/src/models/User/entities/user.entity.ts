@@ -4,7 +4,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class User {
     @PrimaryGeneratedColumn({
         type: 'bigint',
-        name: 'user_id'
+        name: 'id'
     })
     id: number;
 
