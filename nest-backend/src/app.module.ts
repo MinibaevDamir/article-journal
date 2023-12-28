@@ -4,7 +4,8 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './models/User/entities/user.entity';
-import { UserModule } from './models/User/user.module';
+import { UserHttpModule } from './models/User/user-http.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }),
@@ -29,7 +30,7 @@ import { UserModule } from './models/User/user.module';
       migrationsRun: true
     }),
     inject: [ConfigService],
-  }), UserModule],
+  }), UserHttpModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
