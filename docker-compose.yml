@@ -2,10 +2,11 @@ version: '3.7'
 services:
   nest:
     build: ./nest-backend
+    command: sh -c "cd /app && npm install && npm run build && npm run start:dev"
     ports:
       - "5000:3000"
     volumes:
-      - "/usercode/:/code"
+      - "./nest-backend:/app"
     environment:
       - DB_HOST=db
       - DB_PORT=5432
@@ -13,7 +14,7 @@ services:
       - DB_PASSWORD=admin
       - DB_NAME=blog_DB
     depends_on:
-      - db
+       - db
     logging:
       driver: "json-file"
       options:
@@ -26,14 +27,13 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=blog_DB
-      - POSTGRES_HOST=db
+      - POSTGRES_HOST=127.0.0.1
     ports:
       - "5432:5432"
-  vue:
-    build: ./vue3-frontend
-
+  vite:
+    image: node:14
+    command: sh -c "cd /app && npm install && npm run dev"
     ports:
-      - "80:8080"
-
+      - "80:3000"
     volumes:
-      - "/usercode/:/code"
+      - "./vue3-frontend:/app"
