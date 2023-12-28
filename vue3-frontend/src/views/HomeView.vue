@@ -1,8 +1,8 @@
 <template>
   <div class="blog-container">
-    <div class="article-wrapper">
+    <div class="blog-container__article-wrapper">
       <ArticlePreview
-        v-for="article in articleData"
+        v-for="article in articles"
         :id="article.id"
         :text="article.text"
         :title="article.title"
@@ -12,10 +12,10 @@
 </template>
 <script lang="ts" setup>
 import ArticlePreview from "@/components/ArticlePreview.vue";
-import { computed } from "vue";
-import { useStore } from "@/store";
-const store = useStore();
-const articleData = computed(() => store.state.articles);
+import { useArticleStore } from "@/store/articleStore";
+const store = useArticleStore();
+const { articles } = store
+
 </script>
 <style lang="scss" scoped>
 .blog-container {
@@ -23,7 +23,7 @@ const articleData = computed(() => store.state.articles);
   background-color: white;
   margin: 24px 24px 24px 80px;
   border-radius: 16px;
-  .article-wrapper {
+  &__article-wrapper {
     display: flex;
     flex-direction: column;
     margin: 24px auto;

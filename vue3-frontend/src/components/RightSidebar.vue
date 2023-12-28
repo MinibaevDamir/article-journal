@@ -18,11 +18,11 @@
   </v-navigation-drawer>
 </template>
 <script lang="ts" setup>
+import { useIndexStore } from "@/store/indexStore";
 import { computed } from "vue";
-import { useStore } from "@/store";
 
-const store = useStore();
-const sidebarItems = computed(() => store.state.sidebarItems);
+const store = useIndexStore();
+const { sidebarItems } = store;
 </script>
 <style lang="scss" scoped>
 .right-sidebar {
